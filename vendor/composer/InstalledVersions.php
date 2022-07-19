@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'fb3cbb4ccb854c7c430a460e4aaa1fc39be771aa',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'fb3cbb4ccb854c7c430a460e4aaa1fc39be771aa',
     ),
     'api-platform/core' => 
     array (
@@ -89,6 +89,15 @@ private static $installed = array (
       ),
       'reference' => 'c824e95d4c83b7102d8bc60595445a6f7d540f96',
     ),
+    'doctrine/data-fixtures' => 
+    array (
+      'pretty_version' => '1.5.3',
+      'version' => '1.5.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ba37bfb776de763c5bf04a36d074cd5f5a083c42',
+    ),
     'doctrine/dbal' => 
     array (
       'pretty_version' => '3.3.7',
@@ -115,6 +124,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'd2088fc50494e4e7441fecca54732245a613eeb6',
+    ),
+    'doctrine/doctrine-fixtures-bundle' => 
+    array (
+      'pretty_version' => '3.4.2',
+      'version' => '3.4.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '601988c5b46dbd20a0f886f967210aba378a6fd5',
     ),
     'doctrine/doctrine-migrations-bundle' => 
     array (
@@ -214,6 +232,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '8419f0158715b30d4b99a5bd37c6a39671994ad7',
+    ),
+    'fzaninotto/faker' => 
+    array (
+      'pretty_version' => 'v1.5.0',
+      'version' => '1.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd0190b156bcca848d401fb80f31f504f37141c8d',
     ),
     'laminas/laminas-code' => 
     array (
