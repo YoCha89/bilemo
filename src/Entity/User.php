@@ -19,7 +19,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: '`user`')]
 #[ApiResource(
     normalizationContext: ['groups' =>['read:users']],
-    denormalizationContext: ['groups' => ['write:user']],
+    denormalizationContext: ['groups' => ['write:user']],    collectionOperations: [
+        'post',
+        'clientUsers' => [
+            'method' => 'GET',
+            'path' => 'users/clientUsers',
+            'controller' => ClientUsersController::class,
+            'pagination_enabled' => true,
+        ],
+    ],
+    itemOperations: [
+        'delete',
+        'clientUser' => [
+            'method' => 'GET',
+            'path' => 'users/clientUser',
+            'controller' => ClientUserController::class,
+        ],
+        'postClientUser' => [
+            'method' => 'GET',
+            'path' => 'users/clientUser',
+            'controller' => PostClientUserController::class,
+        ],
+    ]
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
