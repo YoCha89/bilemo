@@ -3,25 +3,38 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use ApiPlatform\Core\Action\NotFoundAction;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+// use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ApiResource(
+    normalizationContext: ['groups' =>['read:users']],
+    denormalizationContext: ['groups' => ['write:user']],
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column()]
+    #[Groups(["read:users"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(["read:users", "write:user"])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(["read:users", "write:user"])]
     private array $roles = [];
 
     /**
@@ -30,16 +43,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Groups(["write:user"])]
+    private ?string $plainPassword;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'clientUsers', cascade:['persist'])]
+    private ?self $userClient = null;
+
+    #[ORM\OneToMany(mappedBy: 'userClient', targetEntity: self::class)]
+    private Collection $clientUsers;
     
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->clientUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,6 +127,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -127,8 +157,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -153,5 +182,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getUserClient(): ?self
+    {
+        return $this->userClient;
+    }
+
+    public function setUserClient(?self $userClient): self
+    {
+        $this->userClient = $userClient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getClientUsers(): Collection
+    {
+        return $this->clientUsers;
+    }
+
+    public function addClientUser(self $clientUser): self
+    {
+        if (!$this->clientUsers->contains($clientUser)) {
+            $this->clientUsers[] = $clientUser;
+            $clientUser->setUserClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClientUser(self $clientUser): self
+    {
+        if ($this->clientUsers->removeElement($clientUser)) {
+            // set the owning side to null (unless already changed)
+            if ($clientUser->getUserClient() === $this) {
+                $clientUser->setUserClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
     }
 }

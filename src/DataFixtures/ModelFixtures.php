@@ -19,9 +19,7 @@ class ModelFixtures extends Fixture implements DependentFixtureInterface{
 
         $faker = Factory::create('fr_FR');
 
-       $colors = ['Blue', 'Red', 'Yellow', 'Green', 'Purple', 'White', 'Black', 'Orange'];
-
-       $i=0;
+        $i=0;
 
         for ($count = 0; $count < 60; $count++){
 
