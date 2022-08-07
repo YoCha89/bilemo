@@ -8,9 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CapacityRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class Capacity
 {
     #[ORM\Id]
@@ -18,6 +19,7 @@ class Capacity
     #[ORM\Column()]
     private ?int $id = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
@@ -27,15 +29,15 @@ class Capacity
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'Capacity', targetEntity: Model::class)]
-    private Collection $Model;
+    #[ORM\OneToMany(mappedBy: 'capacity', targetEntity: Model::class)]
+    private Collection $models;
 
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
-        $this->Model = new ArrayCollection();
+        $this->model = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,19 +81,19 @@ class Capacity
         return $this;
     }
 
-    /**
+/**
      * @return Collection<int, Model>
      */
-    public function getModel(): Collection
+    public function getModels(): Collection
     {
-        return $this->model;
+        return $this->models;
     }
 
     public function addModel(Model $model): self
     {
-        if (!$this->Model->contains($model)) {
-            $this->Model[] = $model;
-            $Model->setCapacity($this);
+        if (!$this->models->contains($model)) {
+            $this->models[] = $model;
+            $model->setColor($this);
         }
 
         return $this;
@@ -99,10 +101,10 @@ class Capacity
 
     public function removeModel(Model $model): self
     {
-        if ($this->Model->removeElement($model)) {
+        if ($this->models->removeElement($model)) {
             // set the owning side to null (unless already changed)
-            if ($model->getCapacity() === $this) {
-                $model->setCapacity(null);
+            if ($model->getColor() === $this) {
+                $model->setColor(null);
             }
         }
 

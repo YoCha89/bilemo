@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'fb3cbb4ccb854c7c430a460e4aaa1fc39be771aa',
+    'reference' => 'a7c97f2ebb60d6b360ee673850b822c918f61e11',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'fb3cbb4ccb854c7c430a460e4aaa1fc39be771aa',
+      'reference' => 'a7c97f2ebb60d6b360ee673850b822c918f61e11',
     ),
     'api-platform/core' => 
     array (
@@ -227,6 +227,42 @@
       ),
       'reference' => 'da01fb74c08f37e20e7ae49f1e3ee09aa401ebad',
     ),
+    'lcobucci/clock' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fb533e093fd61321bfcbac08b131ce805fe183d3',
+    ),
+    'lcobucci/jwt' => 
+    array (
+      'pretty_version' => '4.0.4',
+      'version' => '4.0.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '55564265fddf810504110bd68ca311932324b0e9',
+    ),
+    'lexik/jwt-authentication-bundle' => 
+    array (
+      'pretty_version' => 'v2.16.0',
+      'version' => '2.16.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0a0922a2442c52724c09deb099b263300cc12d54',
+    ),
+    'namshi/jose' => 
+    array (
+      'pretty_version' => '7.2.3',
+      'version' => '7.2.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '89a24d7eb3040e285dd5925fcad992378b82bcff',
+    ),
     'nelmio/cors-bundle' => 
     array (
       'pretty_version' => '2.2.0',
@@ -374,6 +410,15 @@
       array (
         0 => '1.0|2.0',
       ),
+    ),
+    'stella-maris/clock' => 
+    array (
+      'pretty_version' => '0.1.4',
+      'version' => '0.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8a0a967896df4c63417385dc69328a0aec84d9cf',
     ),
     'symfony/apache-pack' => 
     array (
@@ -627,6 +672,15 @@
       array (
       ),
       'reference' => '9344f9cb97f3b19424af1a21a3b0e75b0a7d8d7e',
+    ),
+    'symfony/polyfill-php56' => 
+    array (
+      'pretty_version' => 'v1.20.0',
+      'version' => '1.20.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '54b8cd7e6c1643d78d011f3be89f3ef1f9f4c675',
     ),
     'symfony/polyfill-php72' => 
     array (

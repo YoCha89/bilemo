@@ -6,18 +6,31 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PhoneRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PhoneRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' =>['read:phones', "read:phone"]],
+    collectionOperations:[
+        'get' => [
+            'normalization_context' => ['groups' => ['read:phones']]
+        ]],
+    itemOperations:[
+        'get' => [
+            'normalization_context' => ['groups' => 'read:phone']
+        ]]
+)]
 class Phone
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column()]
+    #[Groups(["read:phones", "read:phone"])]
     private ?int $id = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\ManyToOne(inversedBy: 'phones')]
-    private ?Model $Model = null;
+    private ?Model $model = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
@@ -25,14 +38,10 @@ class Phone
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $stock = null;
-
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
-        $this->stock = 0;
     }
 
     public function getId(): ?int
@@ -42,12 +51,12 @@ class Phone
 
     public function getModel(): ?Model
     {
-        return $this->Model;
+        return $this->model;
     }
 
-    public function setModel(?Model $Model): self
+    public function setModel(?Model $model): self
     {
-        $this->Model = $Model;
+        $this->model = $model;
 
         return $this;
     }
@@ -72,18 +81,6 @@ class Phone
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(?int $stock): self
-    {
-        $this->stock = $stock;
 
         return $this;
     }

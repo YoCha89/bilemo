@@ -8,9 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class Brand
 {
     #[ORM\Id]
@@ -18,6 +19,7 @@ class Brand
     #[ORM\Column()]
     private ?int $id = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
@@ -27,7 +29,7 @@ class Brand
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'Brand', targetEntity: Model::class)]
+    #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Model::class)]
     private Collection $models;
 
     public function __construct()

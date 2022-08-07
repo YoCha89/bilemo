@@ -6,11 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ColorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 #[ORM\Entity(repositoryClass: ColorRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class Color
 {
     #[ORM\Id]
@@ -18,6 +19,7 @@ class Color
     #[ORM\Column()]
     private ?int $id = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
@@ -29,7 +31,6 @@ class Color
 
     #[ORM\OneToMany(mappedBy: 'color', targetEntity: Model::class)]
     private Collection $models;
-
 
     public function __construct()
     {

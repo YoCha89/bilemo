@@ -14,8 +14,8 @@ class BrandFixtures extends Fixture {
 	public function load(ObjectManager $manager) {
 
 		$brand = ['iPhone', 'Samsung', 'Oppo', 'Huawei', 'Xiaomi', 'FairPhone'];
+		
 		$i = 0;
-
 		foreach($brand as $b){
 			$tmp = new Brand();
 

@@ -8,9 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class Model
 {
     #[ORM\Id]
@@ -18,10 +19,11 @@ class Model
     #[ORM\Column()]
     private ?int $id = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'Model', targetEntity: Phone::class)]
+    #[ORM\OneToMany(mappedBy: 'model', targetEntity: Phone::class)]
     private Collection $phones;
 
     #[ORM\Column(nullable: true)]
@@ -30,12 +32,15 @@ class Model
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\ManyToOne(inversedBy: 'models')]
-    private ?Brand $Brand = null;
+    private ?Brand $brand = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Color')]
-    private ?Capacity $Capacity = null;
+    #[Groups(["read:phones", "read:phone"])]
+    #[ORM\ManyToOne(inversedBy: 'models')]
+    private ?Capacity $capacity = null;
 
+    #[Groups(["read:phones", "read:phone"])]
     #[ORM\ManyToOne(inversedBy: 'models')]
     private ?Color $color = null;
 
@@ -120,24 +125,24 @@ class Model
 
     public function getBrand(): ?Brand
     {
-        return $this->Brand;
+        return $this->brand;
     }
 
-    public function setBrand(?Brand $Brand): self
+    public function setBrand(?Brand $brand): self
     {
-        $this->Brand = $Brand;
+        $this->brand = $brand;
 
         return $this;
     }
 
     public function getCapacity(): ?Capacity
     {
-        return $this->Capacity;
+        return $this->capacity;
     }
 
-    public function setCapacity(?Capacity $Capacity): self
+    public function setCapacity(?Capacity $capacity): self
     {
-        $this->Capacity = $Capacity;
+        $this->capacity = $capacity;
 
         return $this;
     }
