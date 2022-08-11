@@ -9,13 +9,15 @@ use App\Repository\UserRepository;
 
 class ClientUsersController extends AbstractController
 {   
-    public function __construct(private Security $security, private UserRepository $repo){
+    private $security;
 
+    public function __construct(Security $security, private UserRepository $repo){
+        $this->security = $security;
     }
 
     public function __invoke(){
-        $clientId = $this->securiy->getUser()->getId();
-        $users = $this->repo->finbBy(array('userClient' => $clientId));
+        $clientId = $this->security->getUser()->getId();
+        $users = $this->repo->findBy(array('userClient' => $clientId));
 
         return $users;
     }
