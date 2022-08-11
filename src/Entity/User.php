@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use ApiPlatform\Core\Action\NotFoundAction;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Controller\ClientUsersController;
+use App\Controller\ClientUserController;
+
 // use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -32,13 +36,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'delete',
         'clientUser' => [
             'method' => 'GET',
-            'path' => 'users/clientUser',
+            'path' => 'users/{id}/clientUser',
             'controller' => ClientUserController::class,
-        ],
-        'postClientUser' => [
-            'method' => 'GET',
-            'path' => 'users/clientUser',
-            'controller' => PostClientUserController::class,
         ],
     ]
 )]
@@ -52,6 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(["read:users", "write:user"])]
+    #[Assert\NotBlank(message: "The user email has to be entered")]
+    #[Assert\NotNull(message: "The user email has to be entered")]
+    #[Assert\Email(message: "The email entered is not compliant. Please make sure to enter a valid email.")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -62,6 +64,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: "The user password has to be entered")]
+    #[Assert\NotNull(message: "The user password has to be entered")]
+    #[Assert\Length(min: 6, minMessage: "The password entered must use 6 characters minimum.")]
     private ?string $password = null;
 
     #[Groups(["write:user"])]

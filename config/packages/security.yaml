@@ -56,9 +56,9 @@ security:
     #     - { path: ^/api/users, roles: ROLE_ADMIN }
 
     access_control:
-        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/users, roles: ROLE_ADMIN }
+        - { path: ^/api/phones, roles: IS_AUTHENTICATED_FULLY } # must be authenticated
+        - { path: ^/api/login, roles: PUBLIC_ACCESS } # Allows accessing to everyone to connect
+        - { path: ^/api/users, roles: ROLE_ADMIN } # Users manipulation are restricted to clients
 
 when@test:
     security:
