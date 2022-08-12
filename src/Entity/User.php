@@ -52,7 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(["read:users", "write:user"])]
     #[Assert\NotBlank(message: "The user email has to be entered")]
-    #[Assert\NotNull(message: "The user email has to be entered")]
     #[Assert\Email(message: "The email entered is not compliant. Please make sure to enter a valid email.")]
     private ?string $email = null;
 
@@ -64,12 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank(message: "The user password has to be entered")]
-    #[Assert\NotNull(message: "The user password has to be entered")]
-    #[Assert\Length(min: 6, minMessage: "The password entered must use 6 characters minimum.")]
     private ?string $password = null;
 
     #[Groups(["write:user"])]
+    #[Assert\NotBlank(message: "The user password has to be entered")]
+    #[Assert\Length(min: 6, minMessage: "The password entered must use 6 characters minimum.")]
     private ?string $plainPassword;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
