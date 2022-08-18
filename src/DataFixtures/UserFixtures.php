@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture 
 {
@@ -15,7 +16,6 @@ class UserFixtures extends Fixture
     {  
         $faker = Factory::create('fr_FR');
         $pass = password_hash('abcd1234', PASSWORD_DEFAULT);
-        $rand=['azertyuiopqsdfghjklmwxcvbn'];
 
         $userAdmin = new User();
         $userAdmin->setEmail('admin@gmail.com');

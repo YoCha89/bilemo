@@ -30,6 +30,10 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
+        refresh:
+            pattern:  ^/token/refresh
+            stateless: true
+
         main:
             lazy: true
             provider: app_user_provider
@@ -58,6 +62,7 @@ security:
     access_control:
         - { path: ^/api/phones, roles: IS_AUTHENTICATED_FULLY } # must be authenticated
         - { path: ^/api/login, roles: PUBLIC_ACCESS } # Allows accessing to everyone to connect
+        - { path: ^/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users, roles: ROLE_ADMIN } # Users manipulation are restricted to clients
 
 when@test:
