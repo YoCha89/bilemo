@@ -9,3 +9,6 @@ api_platform:
           apiKey:
             name: Authorization
             type: header
+
+    exception_to_status:
+        App\Exception\PropertyException: 401 

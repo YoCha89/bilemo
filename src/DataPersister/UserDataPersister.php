@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use App\Exception\PropertyException;
+
 
 
 //Custom persister to juggle with plainpassword and password in order to hide the uncrypted pass 
@@ -62,13 +64,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
             $this->em->remove($data);
             $this->em->flush();
         }else{
-
-            $data = [
-                'status' => 401, // Le status n'existe pas car ce n'est pas une exception HTTP, donc on met 500 par défaut.
-                'message' => 'We have not find the user you are trying to delete in your registered users. You can only delete accounts from your user\'s list.'
-            ];
-
-            return new JsonResponse($data);
+            throw new PropertyException('We have not find the user you are trying to delete in your registered users. You can only delete accounts from your user\'s list.');
         }
 
     }
