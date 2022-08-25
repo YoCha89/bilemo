@@ -53,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(["read:users", "write:user"])]
     #[Assert\NotBlank(message: "The user email has to be entered")]
     #[Assert\Email(message: "The email entered is not compliant. Please make sure to enter a valid email.")]
+    #[Assert\UniqueEntity]
     private ?string $email = null;
 
     #[ORM\Column]

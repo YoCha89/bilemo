@@ -37,7 +37,7 @@ class UserFixtures extends Fixture
                 $user = new User();
                 $user->setEmail(str_replace(' ','',$faker->name().'@gmail.com'));
                 $user->setPassword($pass, PASSWORD_DEFAULT);
-                $client->setUserClient($client);
+                $user->setUserClient($client);
                 $manager->persist($user);
 
             }
