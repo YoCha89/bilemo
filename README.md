@@ -25,7 +25,7 @@ Installing the app :<br/>
     <li>Back throught your CLI, run "php bin/console make:migration"</li>
     <li>Once the migration is generated, run "php bin/console doctrine:migrations:migrate" to build your database according to the entities schemes</li>
     <li>Execute the bilemo.sql file included with the project file to populate the database</li>
-    <li>To make the mailer work, register for free in MailTrap. An app that will capture our mail but work like a mailbox, allowing the test of mailer related action within the app </li>
+    <li>Generate you environment's JWT pair of safety token by running the CLI command : php bin/console lexik:jwt:generate-keypair.</li>
 </ol>
 
 © 2022 GitHub, Inc.
