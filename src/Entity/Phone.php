@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             'normalization_context' => ['groups' => 'read:phone']
         ]]
 )]
+
 class Phone
 {
     #[ORM\Id]
