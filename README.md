@@ -16,7 +16,7 @@ prerequisite :<br/>
     <li> Developped with Laragon </li>
 </ul>
 
-Installing the app :<br/>
+Installing the app and make work as an API service:<br/>
 
 <ol>    
     <li>Download the code files in your projects folder</li>
@@ -26,6 +26,8 @@ Installing the app :<br/>
     <li>Once the migration is generated, run "php bin/console doctrine:migrations:migrate" to build your database according to the entities schemes</li>
     <li>Execute the bilemo.sql file included with the project file to populate the database</li>
     <li>Generate you environment's JWT pair of safety token by running the CLI command : php bin/console lexik:jwt:generate-keypair.</li>
+    <li>Open the CLI associated with your dev environment and run the following command : symfony server:start.</li>
+    <li>You can now access the swagger interface of the API by adding /api to your url for this project</li>
 </ol>
 
 © 2022 GitHub, Inc.

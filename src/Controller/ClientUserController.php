@@ -25,7 +25,7 @@ class ClientUserController extends AbstractController
         }else{
             $data = [
                 'status' => 403,
-                'message' => 'The user you are trying to access is not on your users lis'
+                'message' => 'The user you are trying to access is not on your users list'
             ];
 
             return new JsonResponse($data);
