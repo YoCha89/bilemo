@@ -28,7 +28,7 @@ class ClientUserController extends AbstractController
                 'message' => 'The user you are trying to access is not on your users list'
             ];
 
-            return new JsonResponse($data);
+            return new JsonResponse($data, 403);
         }
 
     }
